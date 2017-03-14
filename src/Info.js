@@ -75,7 +75,7 @@ class Info extends Component{
 
 
   getInfo = (name) => {
-    var url = `http://ws.audioscrobbler.com/2.0/?method=artist.getinfo&artist=${name}&api_key=f6a8bf9ddddbea49fb6e81d04516b6b6&format=json`
+    var url = `https://ws.audioscrobbler.com/2.0/?method=artist.getinfo&artist=${name}&api_key=f6a8bf9ddddbea49fb6e81d04516b6b6&format=json`
     fetch(url)
     .then(response => response.json())
     .then(res => this.setState({
