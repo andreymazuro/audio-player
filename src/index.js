@@ -9,8 +9,8 @@ import { Router, Route, browserHistory } from 'react-router'
 
 ReactDOM.render((
   <Router history={browserHistory}>
-    <Route path="/" component={Header}>
-      <Route path="/home" component={Main}/>
+    <Route component={Header}>
+      <Route path="/" component={Main}/>
       <Route path="/artistInfo/:name/" component={Info}/>
       <Route path="/favorites" component={Favorites}/>
     </Route>
