@@ -1,0 +1,67 @@
+h3 { color: #111;
+  font-family: 'Raleway', sans-serif;
+  font-size: 30px;
+  font-weight: bold;
+  letter-spacing: -1px;
+  line-height: 1;
+}
+
+.search-input{
+  margin-top: 20px;
+  width: 40%;
+}
+
+.sortableHelper {
+   z-index: 10000 !important;
+}
+
+.material-icons.md-36 {
+  font-size: 36px;
+  margin-top: 12px;
+}
+
+.material-icons:hover{
+  cursor:pointer;
+}
+
+.material-icons.close { color: red }
+
+
+div.inline {
+  float:left;
+  height:43px;
+}
+
+#volume {
+  margin-left: 10px;
+}
+
+.main-player {
+  display: table;
+  margin: 0 auto;
+}
+
+.song-info{
+  display: table;
+  margin: 0 auto;
+}
+
+
+.player {
+  background-color: white;
+  z-index: 20;
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  width: 100%;
+}
+
+.left-side{
+  width: 25%;
+  float: left;
+}
+
+.right-side{
+  width: 75%;
+  float:left;
+}
