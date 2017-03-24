@@ -17,7 +17,7 @@ injectTapEventPlugin();
 
 
 
-class Main extends Component {
+class Search extends Component {
   constructor(){
     super()
     this.state = {
@@ -30,6 +30,7 @@ class Main extends Component {
       openBot: false
     }
   }
+
 
   playSong = (song,index) => (e) => {
     this.setState({
@@ -157,4 +158,4 @@ class Main extends Component {
   }
 }
 
-export default Main
+export default Search

@@ -10,6 +10,7 @@ class Header extends Component{
       <MuiThemeProvider>
         <Tabs>
           <Tab label="Home" containerElement={<Link to="/"/>} />
+          <Tab label="Search" containerElement={<Link to="/search"/>} />
           <Tab containerElement={<Link to="/favorites"/>} label="Favorites" />
         </Tabs>
       </MuiThemeProvider>

@@ -62,3 +62,8 @@ export const getImages = (artists) => {
   var res = R.map(image, artists);
   return res
 }
+
+export const getInfo = (images) => {
+  var info = x => R.assoc('original', x['im:image'][2].label, {thumbnail: x['im:image'][2].label})
+  return R.map(info, images)
+}

@@ -54,6 +54,7 @@ class Info extends Component{
     }
   }
 
+
   componentWillReceiveProps(nextProps){
     if (this.props.params.name !== nextProps.params.name) {
       this.getInfo(nextProps.params.name)
