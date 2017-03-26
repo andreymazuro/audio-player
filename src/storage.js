@@ -29,8 +29,22 @@ export const checked = (track, isInputChecked) => {
 }
 
 export const check = (track) => {
+  var exists = false
   var favourites = JSON.parse(localStorage.getItem('favourites')) || []
-  return R.contains(track, favourites)
+  if (track.id) {
+    favourites.map(item => {
+      if (item.trackId == track.id.attributes['im:id']) {
+        exists = true
+      }
+    })
+  } else {
+    favourites.map(item => {
+      if (item.trackId == track.trackId) {
+        exists = true
+      }
+    })
+  }
+  return exists
 }
 
 export const remove = (track) => {
@@ -66,4 +80,13 @@ export const getImages = (artists) => {
 export const getInfo = (images) => {
   var info = x => R.assoc('original', x['im:image'][2].label, {thumbnail: x['im:image'][2].label})
   return R.map(info, images)
+}
+
+export const transform = (song) => {
+  if (song['im:name']) {
+    const newObj = {trackName: song['im:name'].label, artistName: song['im:artist'].label, previewUrl: song.link[1].attributes.href, trackId: song.id.attributes['im:id'], artworkUrl100: song['im:image'][2].label}
+    return newObj
+  } else {
+    return {}
+  }
 }

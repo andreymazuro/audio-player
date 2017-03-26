@@ -3,6 +3,7 @@ import Subheader from 'material-ui/Subheader';
 import Slider from 'material-ui/Slider';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import {format} from './storage'
+import R from 'ramda'
 
 
 class Player extends Component{
@@ -19,7 +20,7 @@ class Player extends Component{
 
 
   componentWillReceiveProps(nextProps){
-    if (this.props.song !== nextProps.song) {
+    if (this.props.song !== nextProps.song && !(R.isEmpty(nextProps.song))) {
       this.setState({
         playing: true,
         disabled: false
@@ -94,7 +95,6 @@ class Player extends Component{
   render() {
     const song = this.props.song
     var artist = song.artistName
-
     return(
       <MuiThemeProvider>
         <div className="player">

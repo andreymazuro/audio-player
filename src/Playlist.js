@@ -21,7 +21,7 @@ const SortableItem = SortableElement(({value, ind, play, current, del}) => (
       onDoubleClick={play(value,ind)}
       primaryText={value.trackName}
       secondaryText={value.artistName}
-      leftAvatar={<Avatar size={40} src={value.artworkUrl100} style={{marginTop:5}}/>}
+      leftAvatar={<Link to={`/artistInfo/${value.artistName}/`}><Avatar size={40} src={value.artworkUrl100} style={{marginTop:5}}/></Link>}
       rightIcon={
         <div>
           <i className="material-icons close" onClick={del(value)}>close</i>

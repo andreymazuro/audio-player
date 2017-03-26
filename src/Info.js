@@ -115,10 +115,6 @@ class Info extends Component{
     this.setState({open: false});
   };
 
-  play = () => (e) => {
-    console.log('bulka')
-  }
-
   cellClicked = (rowNumber, columnId,e) => {
     if (columnId !== 1) {
       this.setState({
@@ -202,7 +198,6 @@ class Info extends Component{
             ))}
           </GridList>
           </div>
-          Top songs:
           <Table
             height={400}
             style={{width: 350, marginLeft: 400}}
