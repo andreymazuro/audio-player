@@ -9,20 +9,20 @@ const SortableItem = SortableElement(({value, ind, play, current, del}) => (
   {(value.trackId !== current)? (
     <ListItem
       style={{zIndex:20}}
-      onDoubleClick={play(value,ind)}
+      onTouchTap={play(value,ind)}
       primaryText={value.trackName}
       secondaryText={value.artistName}
       leftAvatar={<Link to={`/artistInfo/${value.artistName}/`}><Avatar size={40} src={value.artworkUrl100} style={{marginTop:5}}/></Link>}
-      rightIcon={<i className="material-icons close" onClick={del(value)}>close</i>}
+      rightIconButton={<i className="material-icons close" onClick={del(value)}>close</i>}
     />
     ) : (
     <ListItem
       style={{zIndex:20}}
-      onDoubleClick={play(value,ind)}
+      onTouchTap={play(value,ind)}
       primaryText={value.trackName}
       secondaryText={value.artistName}
       leftAvatar={<Link to={`/artistInfo/${value.artistName}/`}><Avatar size={40} src={value.artworkUrl100} style={{marginTop:5}}/></Link>}
-      rightIcon={
+      rightIconButton={
         <div>
           <i className="material-icons close" onClick={del(value)}>close</i>
           <i className="material-icons">volume_up</i>

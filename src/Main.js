@@ -111,8 +111,8 @@ class MainPage extends Component{
   handleRequestClose = () => {
     this.setState({
       openBot: false,
-    });
-  };
+    })
+  }
 
   handleChange = (event, index, value) => {
     this.setState({value});
@@ -159,17 +159,17 @@ class MainPage extends Component{
             </SelectField>
             <Table
               height={500}
-              style={{width: 350, marginLeft: 400}}
+              style={{width: 70, margin: '0 auto'}}
               onCellClick={this.cellClicked}
             >
-            <TableHeader>
+      {/*      <TableHeader>
               <TableRow>
-                <TableHeaderColumn style={{width:1}}></TableHeaderColumn>
-                <TableHeaderColumn style={{width:100}}>Song</TableHeaderColumn>
-                <TableHeaderColumn style={{width:130}}>Artist</TableHeaderColumn>
-                <TableHeaderColumn style={{width:100}}>Price</TableHeaderColumn>
+                <TableHeaderColumn style={{width:20}}>Song</TableHeaderColumn>
+                <TableHeaderColumn style={{width:20}}>Song</TableHeaderColumn>
+                <TableHeaderColumn style={{width:20}}>Artist</TableHeaderColumn>
+                <TableHeaderColumn style={{width:20}}>Price</TableHeaderColumn>
               </TableRow>
-            </TableHeader>
+            </TableHeader> */}
               <TableBody
                 displayRowCheckbox={false}
               >

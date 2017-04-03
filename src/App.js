@@ -62,6 +62,7 @@ class Search extends Component {
   }
 
   add = (track) => (e, isInputChecked) => {
+
     if (isInputChecked) {
       this.setState({openBot: true})
     }
@@ -94,14 +95,14 @@ class Search extends Component {
               onChange={this.update}
               defaultValue=""
               floatingLabelText="Song:"
-              style={{width: 500}}
+              style={{width: '80%'}}
             />
             <div style={{height:20}}>
               <List style={{marginBottom:90}}>
               {tracks.map((track,index) =>
-                <div key={index} onDoubleClick={this.playSong(track, index)}>
-                  {(this.state.currentIndex !== index)? (
+                <div key={index}>
                   <ListItem
+                    onTouchTap={this.playSong(track, index)}
                     primaryText={<p>Track: {track.trackName}</p>}
                     secondaryText={
                       <p>
@@ -111,36 +112,31 @@ class Search extends Component {
                     }
                     secondaryTextLines={2}
                     leftAvatar={<Link to={`/artistInfo/${track.artistName}/`}><Avatar size={55} src={track.artworkUrl100} style={{marginTop:18}}/></Link>}
-                    rightIcon={<Checkbox
-                                  defaultChecked={check(track)}
-                                  onCheck={this.add(track)}
-                                  checkedIcon={<ActionFavorite />}
-                                  uncheckedIcon={<ActionFavoriteBorder />}
-                                />}
-                  />
+                    rightIconButton={
+                      (this.state.currentIndex !== index) ? (
+                        <div>
+                          <Checkbox
+                            defaultChecked={check(track)}
+                            onCheck={this.add(track)}
+                            checkedIcon={<ActionFavorite />}
+                            uncheckedIcon={<ActionFavoriteBorder />}
+                            style={{marginTop:20}}
+                          />
+                        </div>
                       ) : (
-                  <ListItem
-                    primaryText={<p>Name: {track.trackName}</p>}
-                    secondaryText={
-                      <p>
-                        <span style={{color: darkBlack, marginBottom: 10}}>Artist: {track.artistName}</span><br />
-                        Price: {track.trackPrice}$
-                      </p>
+                        <div>
+                          <Checkbox
+                            defaultChecked={check(track)}
+                            onCheck={this.add(track)}
+                            checkedIcon={<ActionFavorite />}
+                            uncheckedIcon={<ActionFavoriteBorder />}
+                            style={{marginTop:20}}
+                          />
+                          <i className="material-icons">volume_up</i>
+                        </div>
+                      )
                     }
-                    secondaryTextLines={2}
-                    rightIcon={<div>
-                                  <Checkbox
-                                    defaultChecked={check(track)}
-                                    onCheck={this.add(track)}
-                                    checkedIcon={<ActionFavorite />}
-                                    uncheckedIcon={<ActionFavoriteBorder />}
-                                  />
-                                  <i className="material-icons">volume_up</i>
-                                </div>
-                    }
-                    leftAvatar={<Avatar size={55} src={track.artworkUrl100}   style={{marginTop:18}}/>}
                   />
-                  )}
                 </div>
                 )}
               </List>

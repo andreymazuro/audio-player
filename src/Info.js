@@ -200,17 +200,17 @@ class Info extends Component{
           </div>
           <Table
             height={400}
-            style={{width: 350, marginLeft: 400}}
+            style={{width: 70, margin: '0 auto'}}
             onCellClick={this.cellClicked}
           >
-          <TableHeader>
+    {/*      <TableHeader>
             <TableRow>
               <TableHeaderColumn style={{width:1}}></TableHeaderColumn>
               <TableHeaderColumn style={{width:100}}>Song</TableHeaderColumn>
               <TableHeaderColumn style={{width:130}}>Artist</TableHeaderColumn>
               <TableHeaderColumn style={{width:100}}>Price</TableHeaderColumn>
             </TableRow>
-          </TableHeader>
+          </TableHeader>  */}
             <TableBody
             displayRowCheckbox={false}
             >
