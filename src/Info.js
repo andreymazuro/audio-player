@@ -8,7 +8,6 @@ import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
 import {Link} from 'react-router'
-import Player from './Player'
 import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn} from 'material-ui/Table';
 import Checkbox from 'material-ui/Checkbox';
 import ActionFavorite from 'material-ui/svg-icons/action/favorite';
@@ -48,8 +47,6 @@ class Info extends Component{
       open: false,
       similar: [],
       tracks:[],
-      current: {},
-      currentIndex: -1,
       openBot: false
     }
   }
@@ -61,19 +58,6 @@ class Info extends Component{
     }
     window.scrollTo(0, 0)
   }
-
-  nextSong = (index) => {
-    this.setState({current: this.state.tracks[index + 1],
-      currentIndex: this.state.currentIndex + 1
-    })
-  }
-
-  prevSong = (index) => {
-    this.setState({current: this.state.tracks[index - 1],
-      currentIndex: this.state.currentIndex - 1
-    })
-  }
-
 
   getInfo = (name) => {
     var url = `https://ws.audioscrobbler.com/2.0/?method=artist.getinfo&artist=${name}&api_key=f6a8bf9ddddbea49fb6e81d04516b6b6&format=json`
@@ -117,10 +101,7 @@ class Info extends Component{
 
   cellClicked = (rowNumber, columnId,e) => {
     if (columnId !== 1) {
-      this.setState({
-        current:this.state.tracks[rowNumber],
-        currentIndex: rowNumber
-      })
+      this.props.play(this.state.tracks, rowNumber)
     }
   }
 
@@ -145,8 +126,6 @@ class Info extends Component{
     const info = convert(this.state.artistInfo.summary)
     const fullInfo = convert(this.state.artistInfo.content)
     const img = this.state.image["#text"]
-    const current = this.state.current
-    const currentIndex = this.state.currentIndex
     const actions = [
       <FlatButton
         label="Close"
@@ -158,7 +137,6 @@ class Info extends Component{
     return(
       <MuiThemeProvider>
         <div>
-          <Player song={current} index={currentIndex} next={this.nextSong} prev={this.prevSong} count={tracks.length} />
           <div className="info-main">
             <div className="left-side">
               <img style={{marginTop:10, width:300, height:300, marginLeft: 20}} alt={"Main"} src={img}/>
@@ -228,7 +206,7 @@ class Info extends Component{
                 <TableRowColumn style={{width:100}}>{item.trackName}</TableRowColumn>
                 <TableRowColumn style={{width:130}}>{this.props.params.name}</TableRowColumn>
                 <TableRowColumn style={{width:100}}>{item.trackPrice}$</TableRowColumn>
-                {(current.trackId === item.trackId)? (
+                {(this.props.current.trackId === item.trackId)? (
                 <TableRowColumn style={{width:30}}><i className="material-icons">volume_up</i></TableRowColumn>
               ) : (<TableRowColumn style={{width:30}}></TableRowColumn>)}
             </TableRow>

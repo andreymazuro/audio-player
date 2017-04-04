@@ -2,16 +2,13 @@ import React, { Component } from 'react';
 import Playlist from './Playlist'
 import {price, remove} from './storage'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import Player from './Player'
 
 class Favorites extends Component{
   constructor(){
     super()
     this.state = {
       playlist: [],
-      price: 0,
-      current: {},
-      currentIndex: -1
+      price: 0
     }
   }
 
@@ -33,38 +30,16 @@ class Favorites extends Component{
   }
 
   playSong = (song,index) => (e) => {
-    this.setState({
-      current:song,
-      currentIndex: index,
-    })
+    this.props.play(this.state.playlist, index)
   }
-
-  nextSong = (index) => {
-    this.setState({
-      current: this.state.playlist[index + 1],
-      currentIndex: this.state.currentIndex + 1
-    })
-  }
-
-  prevSong = (index) => {
-    this.setState({
-      current: this.state.playlist[index - 1],
-      currentIndex: this.state.currentIndex - 1
-    })
-  }
-
 
   render(){
     const playlist = this.state.playlist || []
-    const current = this.state.current
-    const currentIndex = this.state.currentIndex
-    const favorites = this.state.playlist
-    const currentId = this.state.current.trackId
+
     return(
       <MuiThemeProvider>
-        <div style={{marginBottom:100}}>
-          <Playlist songs={favorites} play={this.playSong} del={this.del} currentInd={currentIndex} currentId={currentId}/>
-          <Player song={current} index={currentIndex} next={this.nextSong} prev={this.prevSong} count={playlist.length}/>
+        <div style={{marginBottom:100, marginTop: 50}}>
+          <Playlist songs={playlist} play={this.playSong} del={this.del} currentId={this.props.current.trackId}/>
           <h3>Price {this.state.price}$</h3>
         </div>
       </MuiThemeProvider>

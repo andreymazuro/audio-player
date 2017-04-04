@@ -8,13 +8,14 @@ class Header extends Component{
     return(
     <div>
       <MuiThemeProvider>
-        <Tabs>
+        <Tabs
+        tabItemContainerStyle={{position: "fixed", top:"0", zIndex:'20'}}
+        >
           <Tab label="Home" containerElement={<Link to="/"/>} />
           <Tab label="Search" containerElement={<Link to="/search"/>} />
           <Tab containerElement={<Link to="/favorites"/>} label="Favorites" />
         </Tabs>
       </MuiThemeProvider>
-      {this.props.children}
     </div>
     )
   }

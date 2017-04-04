@@ -8,7 +8,6 @@ import injectTapEventPlugin from 'react-tap-event-plugin';
 import Checkbox from 'material-ui/Checkbox';
 import ActionFavorite from 'material-ui/svg-icons/action/favorite';
 import ActionFavoriteBorder from 'material-ui/svg-icons/action/favorite-border';
-import Player from './Player'
 import TextField from 'material-ui/TextField';
 import {darkBlack} from 'material-ui/styles/colors';
 import {Link} from 'react-router'
@@ -22,8 +21,6 @@ class Search extends Component {
     super()
     this.state = {
       tracks: [],
-      current: {},
-      currentIndex: -1,
       artist: '',
       track: '',
       price: '',
@@ -33,24 +30,7 @@ class Search extends Component {
 
 
   playSong = (song,index) => (e) => {
-    this.setState({
-      current:song,
-      currentIndex: index,
-    })
-  }
-
-  nextSong = (index) => {
-    this.setState({
-      current: this.state.tracks[index + 1],
-      currentIndex: this.state.currentIndex + 1
-    })
-  }
-
-  prevSong = (index) => {
-    this.setState({
-      current: this.state.tracks[index - 1],
-      currentIndex: this.state.currentIndex - 1
-    })
+    this.props.play(this.state.tracks, index)
   }
 
   findSong = (track) => {
@@ -62,7 +42,6 @@ class Search extends Component {
   }
 
   add = (track) => (e, isInputChecked) => {
-
     if (isInputChecked) {
       this.setState({openBot: true})
     }
@@ -72,7 +51,6 @@ class Search extends Component {
   update = (e) => {
     const track = this.refs.song.getValue()
     this.findSong(track)
-    this.setState({currentIndex: -1})
   }
 
   handleRequestClose = () => {
@@ -83,19 +61,17 @@ class Search extends Component {
 
   render() {
     const tracks = this.state.tracks || []
-    const current = this.state.current
-    const currentIndex = this.state.currentIndex
+    var id = this.props.current.trackId
     return (
       <MuiThemeProvider>
         <div>
           <div>
-            <Player song={current} index={currentIndex} next={this.nextSong} prev={this.prevSong} count={tracks.length}/>
             <TextField
               ref="song"
               onChange={this.update}
               defaultValue=""
               floatingLabelText="Song:"
-              style={{width: '80%'}}
+              style={{width: '80%', marginTop: 50}}
             />
             <div style={{height:20}}>
               <List style={{marginBottom:90}}>
@@ -113,7 +89,6 @@ class Search extends Component {
                     secondaryTextLines={2}
                     leftAvatar={<Link to={`/artistInfo/${track.artistName}/`}><Avatar size={55} src={track.artworkUrl100} style={{marginTop:18}}/></Link>}
                     rightIconButton={
-                      (this.state.currentIndex !== index) ? (
                         <div>
                           <Checkbox
                             defaultChecked={check(track)}
@@ -122,19 +97,10 @@ class Search extends Component {
                             uncheckedIcon={<ActionFavoriteBorder />}
                             style={{marginTop:20}}
                           />
+                          {(id == track.trackId) ? (
+                            <i className="material-icons">volume_up</i>) : (null)}
                         </div>
-                      ) : (
-                        <div>
-                          <Checkbox
-                            defaultChecked={check(track)}
-                            onCheck={this.add(track)}
-                            checkedIcon={<ActionFavorite />}
-                            uncheckedIcon={<ActionFavoriteBorder />}
-                            style={{marginTop:20}}
-                          />
-                          <i className="material-icons">volume_up</i>
-                        </div>
-                      )
+
                     }
                   />
                 </div>

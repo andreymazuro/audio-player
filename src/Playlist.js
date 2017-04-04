@@ -6,16 +6,6 @@ import {Link} from 'react-router'
 
 const SortableItem = SortableElement(({value, ind, play, current, del}) => (
   <div>
-  {(value.trackId !== current)? (
-    <ListItem
-      style={{zIndex:20}}
-      onTouchTap={play(value,ind)}
-      primaryText={value.trackName}
-      secondaryText={value.artistName}
-      leftAvatar={<Link to={`/artistInfo/${value.artistName}/`}><Avatar size={40} src={value.artworkUrl100} style={{marginTop:5}}/></Link>}
-      rightIconButton={<i className="material-icons close" onClick={del(value)}>close</i>}
-    />
-    ) : (
     <ListItem
       style={{zIndex:20}}
       onTouchTap={play(value,ind)}
@@ -24,12 +14,11 @@ const SortableItem = SortableElement(({value, ind, play, current, del}) => (
       leftAvatar={<Link to={`/artistInfo/${value.artistName}/`}><Avatar size={40} src={value.artworkUrl100} style={{marginTop:5}}/></Link>}
       rightIconButton={
         <div>
+        {(value.trackId == current)? (<i className="material-icons">volume_up</i>) : null}
           <i className="material-icons close" onClick={del(value)}>close</i>
-          <i className="material-icons">volume_up</i>
         </div>
       }
-    />)
-  }
+    />
   </div>
 ))
 
@@ -47,14 +36,12 @@ class Playlist extends Component {
     constructor(){
       super();
       this.state={
-        items: [],
-        currentId: ''
+        items: []
       }
     }
 
 
     componentWillReceiveProps(nextProps){
-      this.setState({currentId: nextProps.currentId})
       if (this.props.songs !== nextProps.songs) {
         const playlist = nextProps.songs
         this.setState({items: playlist})
@@ -68,7 +55,7 @@ class Playlist extends Component {
         });
     };
     render() {
-    const  current = this.state.currentId
+    const  current = this.props.currentId
         return (
             <SortableList helperClass='sortableHelper' items={this.state.items} onSortEnd={this.onSortEnd} distance={1} play={this.props.play} del={this.props.del} current={current}/>
         )
