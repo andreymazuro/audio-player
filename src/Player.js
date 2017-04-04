@@ -19,8 +19,8 @@ class Player extends Component{
   }
 
   componentWillReceiveProps(nextProps){
-//    const eq = R.equals(this.props, nextProps)
-    if (!R.isEmpty(nextProps.song)) {
+    const eq = R.equals(this.props, nextProps)
+    if (!R.isEmpty(nextProps.song) && !eq) {
   //    this.refs.audio.play()
       this.setState({
         playing: true,
