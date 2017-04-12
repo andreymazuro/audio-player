@@ -29,13 +29,12 @@ class Favorites extends Component{
     this.checkPrice()
   }
 
-  playSong = (song,index) => (e) => {
-    this.props.play(this.state.playlist, index)
+  playSong = (songs,index) => (e) => {
+    this.props.play(songs, index)
   }
 
   render(){
     const playlist = this.state.playlist || []
-
     return(
       <MuiThemeProvider>
         <div style={{marginBottom:100, marginTop: 50}}>

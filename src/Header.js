@@ -9,7 +9,7 @@ class Header extends Component{
     <div>
       <MuiThemeProvider>
         <Tabs
-        tabItemContainerStyle={{position: "fixed", top:"0", zIndex:'20'}}
+        tabItemContainerStyle={{position: "fixed", top:"0", zIndex:'30'}}
         >
           <Tab label="Home" containerElement={<Link to="/"/>} />
           <Tab label="Search" containerElement={<Link to="/search"/>} />

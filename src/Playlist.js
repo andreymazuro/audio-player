@@ -4,14 +4,17 @@ import {ListItem} from 'material-ui/List';
 import Avatar from 'material-ui/Avatar';
 import {Link} from 'react-router'
 
-const SortableItem = SortableElement(({value, ind, play, current, del}) => (
+const SortableItem = SortableElement(({value, ind, play, current, del, items,stopProp}) => (
   <div>
     <ListItem
       style={{zIndex:20}}
-      onTouchTap={play(value,ind)}
+      onClick={play(items,ind)}
       primaryText={value.trackName}
       secondaryText={value.artistName}
-      leftAvatar={<Link to={`/artistInfo/${value.artistName}/`}><Avatar size={40} src={value.artworkUrl100} style={{marginTop:5}}/></Link>}
+      leftAvatar={<div onClick={stopProp}>
+                    <Link to={`/artistInfo/${value.artistName}/`}><Avatar size={40} src={value.artworkUrl100} style={{marginTop:5}}/></Link>
+                  </div>
+                 }
       rightIconButton={
         <div>
         {(value.trackId == current)? (<i className="material-icons">volume_up</i>) : null}
@@ -22,11 +25,11 @@ const SortableItem = SortableElement(({value, ind, play, current, del}) => (
   </div>
 ))
 
-const SortableList = SortableContainer(({items, play, current, del}) => {
+const SortableList = SortableContainer(({items, play, current, del,stopProp}) => {
     return (
         <ul>
             {items.map((item, index) =>
-                <SortableItem key={`item-${index}`} index={index} del={del} ind={index} value={item} play={play} current={current}/>
+                <SortableItem key={`item-${index}`} index={index} items={items} del={del} ind={index} value={item} play={play} current={current} stopProp={stopProp}/>
             )}
         </ul>
     );
@@ -48,16 +51,21 @@ class Playlist extends Component {
       }
     }
 
+    stopPropog = (e) => {
+      e.stopPropagation();
+    }
+
     onSortEnd = ({oldIndex, newIndex}) => {
       localStorage.setItem('favourites', JSON.stringify(arrayMove(this.state.items, oldIndex, newIndex)));
         this.setState({
             items: arrayMove(this.state.items, oldIndex, newIndex)
         });
     };
+
     render() {
     const  current = this.props.currentId
         return (
-            <SortableList helperClass='sortableHelper' items={this.state.items} onSortEnd={this.onSortEnd} distance={1} play={this.props.play} del={this.props.del} current={current}/>
+            <SortableList helperClass='sortableHelper' items={this.state.items} stopProp={this.stopPropog} onSortEnd={this.onSortEnd} distance={1} play={this.props.play} del={this.props.del} current={current}/>
         )
     }
 }

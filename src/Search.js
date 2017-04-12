@@ -36,9 +36,9 @@ class Search extends Component {
   findSong = (track) => {
     var url = `https://itunes.apple.com/search?term=${track}&entity=song&limit=10`
     fetchJsonp(url)
-    .then(response => response.json())
-    .then(res => this.setState({tracks: res.results}))
-    .catch(er => console.log(er))
+      .then(response => response.json())
+      .then(res => this.setState({tracks: res.results}))
+      .catch(er => console.log(er))
   }
 
   add = (track) => (e, isInputChecked) => {
@@ -59,6 +59,10 @@ class Search extends Component {
     });
   };
 
+  stopPropog = (e) => {
+    e.stopPropagation();
+  }
+
   render() {
     const tracks = this.state.tracks || []
     var id = this.props.current.trackId
@@ -75,36 +79,38 @@ class Search extends Component {
             />
             <div style={{height:20}}>
               <List style={{marginBottom:90}}>
-              {tracks.map((track,index) =>
-                <div key={index}>
-                  <ListItem
-                    onTouchTap={this.playSong(track, index)}
-                    primaryText={<p>Track: {track.trackName}</p>}
-                    secondaryText={
-                      <p>
-                        <span style={{color: darkBlack, marginBottom: 10}}>Artist: {track.artistName}</span><br />
-                        Price: {track.trackPrice}$
-                      </p>
-                    }
-                    secondaryTextLines={2}
-                    leftAvatar={<Link to={`/artistInfo/${track.artistName}/`}><Avatar size={55} src={track.artworkUrl100} style={{marginTop:18}}/></Link>}
-                    rightIconButton={
-                        <div>
+                {tracks.map((track,index) =>
+                  <div key={index}>
+                    <ListItem
+                      onClick={this.playSong(track, index)}
+                      primaryText={<p>Track: {track.trackName}</p>}
+                      secondaryText={
+                        <p>
+                          <span style={{color: darkBlack, marginBottom: 10}}>Artist: {track.artistName}</span><br />
+                                      Price: {track.trackPrice}$
+                        </p>
+                                    }
+                      secondaryTextLines={2}
+                      leftAvatar={<div onClick={this.stopPropog}>
+                                    <Link to={`/artistInfo/${track.artistName}/`}><Avatar size={40} src={track.artworkUrl100} style={{marginTop:5, zIndex: 100}}/></Link>
+                                  </div>
+                                 }
+                      rightIcon={
+                        <div onClick={this.stopPropog}>
                           <Checkbox
-                            defaultChecked={check(track)}
-                            onCheck={this.add(track)}
                             checkedIcon={<ActionFavorite />}
                             uncheckedIcon={<ActionFavoriteBorder />}
+                            defaultChecked={check(track)}
+                            onCheck={this.add(track)}
                             style={{marginTop:20}}
                           />
-                          {(id == track.trackId) ? (
-                            <i className="material-icons">volume_up</i>) : (null)}
+                                  {(id == track.trackId) ? (
+                                     <i className="material-icons">volume_up</i>) : (null)}
                         </div>
-
-                    }
-                  />
-                </div>
-                )}
+                      }
+                    />
+                  </div>
+                 )}
               </List>
             </div>
           </div>
