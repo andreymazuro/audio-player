@@ -26,6 +26,8 @@ class Player extends Component{
         playing: true,
         disabled: false
       })
+
+    this.refs.audio.load()
     }
   }
 
