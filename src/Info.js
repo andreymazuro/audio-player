@@ -138,10 +138,10 @@ class Info extends Component{
       <MuiThemeProvider>
         <div>
           <div className="info-main">
-            <div className="left-side">
-              <img style={{marginTop:10, width:300, height:300, marginLeft: 20}} alt={"Main"} src={img}/>
+            <div id="left-side">
+              <img id="main-info-image" alt={"Main"} src={img}/>
             </div>
-            <div className="right-side">
+            <div id="right-side">
               <h3>{this.props.params.name}</h3>
               <p>{info}</p>
               <div>

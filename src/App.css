@@ -6,6 +6,19 @@ h3 { color: #111;
   line-height: 1;
 }
 
+.info-main{
+  margin-top: 40px;
+  display: flex;
+}
+
+#left-side{
+  flex: 0 0 20%;
+}
+
+#main-info-image{
+  max-width: 100%;
+}
+
 .search-input{
   margin-top: 20px;
   width: 40%;
